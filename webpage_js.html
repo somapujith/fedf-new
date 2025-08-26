@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>variables</title>
+</head>
+
+<body>
+    <script>
+
+       /* var x=100;
+        document.write(x,"<br>");
+
+        var x=200;
+        document.write(x);  // var allow duplicate variables */
+
+
+
+         /* var x1 = 100  //global
+        document.write(x1, "<br>");
+        {
+
+            //local variable
+            var x1 = 200;
+        }
+
+        document.write(x1);  //200 because of var keyword(global polluting issue)  //let:100  */
+  
+        function klh_fn()
+        {
+         var y=100;
+         document.write(y);
+         {
+            let y1=200;
+           //document.write(y1);
+
+         }
+         document.write(y);  //100 
+          document.write(y1); //Error
+        }
+
+        klh_fn();
+
+
+    </script>
+</body>
+
+</html>
