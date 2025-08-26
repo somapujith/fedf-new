@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overlapping Boxes</title>
+    <style>
+        .common {
+            width: 150px;
+            height: 150px;
+            border: 1px solid gray;
+            position: relative;
+            text-align: left;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+        }
+        .c1 {
+            top: 0px;
+            left: 0px;
+            background: white;
+            color: black;
+            z-index: 1;
+        }
+        .c2 {
+            top: -40px;
+            left: 40px;
+            background: green;
+            color: black;
+            z-index: 2;
+        }
+        .c3 {
+            top: -80px;
+            left: 80px;
+            background: #007700;
+            color: white;
+            z-index: 3;
+        }
+        .c4 {
+            top: -120px;
+            left: 120px;
+            background: #004400;
+            color: white;
+            z-index: 4;
+        }
+        .c5 {
+            top: -160px;
+            left: 160px;
+            background: #002200;
+            color: white;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+    <div class="common c1">1</div>
+    <div class="common c2">2</div>
+    <div class="common c3">3</div>
+    <div class="common c4">4</div>
+    <div class="common c5">5</div>
+</body>
+</html>
+    

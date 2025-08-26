@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Absolute Position</title>
+    <style>
+        .container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            border: 2px solid black;
+            margin: 50px auto;
+            background-color: #f0f0f0;
+        }
+
+        .absolute-image {
+            position: absolute;
+            top: 50px;
+            left: 100px;
+            width: 200px;
+            height: auto;
+            border: 2px solid red;
+        }
+
+        .absolute-text {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: yellow;
+            padding: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Example of Absolute Positioning With a Random Image</h2>
+
+<div class="container">
+    <img src="https://picsum.photos/200/300?random=1" alt="Random Sample" class="absolute-image">
+    <div class="absolute-text">This is absolute text</div>
+</div>
+
+</body>
+</html>
