@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Basics</title>
+</head>
+
+<body>
+    <script>
+        const obj2 = {
+            frontend1: "React",
+            backend1: "Node",
+            database1: "MongoDB"
+        };
+
+        obj2.frontend1 = "ReactJS";
+        obj2.stack = "MERN Stack";
+
+        let { frontend1, backend1, database1, stack } = obj2;
+        document.write(frontend1, "<br>", backend1, "<br>", database1, "<br>", stack);
+    </script>
+</body>
+
+</html>

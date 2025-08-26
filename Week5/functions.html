@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions in JavaScript</title>
+</head>
+<body>
+    <script>
+      
+        function db_func() {
+            document.write("We are discussing functions in JavaScript<br>");
+        }
+        db_func();
+
+     
+        function db_func_return() {
+            return "We are discussing functions in JavaScript<br>";
+        }
+        let msg = db_func_return();
+        document.write(msg);
+
+      
+        function db_func_param(param1) {
+            document.write(We are discussing functions in JavaScript: ${param1}<br>);
+        }
+        db_func_param("ASYNCHRONOUS CALLS");
+
+      
+        function db_func_param_return(param1) {
+            return We are discussing functions in JavaScript: ${param1}<br>;
+        }
+        let msg2 = db_func_param_return("ASYNCHRONOUS CALLS");
+        document.write(msg2);
+
+       
+        let db_func1 = () => {
+            document.write("We are using ARROW FUNCTIONS<br>");
+        }
+        db_func1();
+
+      
+        let db_func2 = () => {
+            return "We are discussing functions in JavaScript (Arrow)<br>";
+        }
+        let msg3 = db_func2();
+        document.write(msg3);
+
+        let db_func3 = (param1) => {
+            document.write(We are discussing functions in JavaScript (Arrow): ${param1}<br>);
+        }
+        db_func3("ASYNCHRONOUS CALLS");
+
+        let db_func4 = (param1) => {
+            return We are discussing functions in JavaScript (Arrow): ${param1}<br>;
+        }
+        let msg4 = db_func4("ASYNCHRONOUS CALLS");
+        document.write(msg4);
+
+    </script>
+</body>
+</html>

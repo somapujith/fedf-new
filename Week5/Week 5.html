@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Validated Form</title>
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f6fa;
+      margin: 0;
+    }
+    .form-container {
+      border: 2px solid #b2bec3;
+      border-radius: 12px;
+      padding: 32px 28px 24px 28px;
+      background: #fff;
+      box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 340px;
+    }
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    form > div {
+      width: 100%;
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    label {
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 1em;
+      border-radius: 4px;
+      border: 1.5px solid #b2bec3;
+      transition: border 0.2s, background 0.2s;
+      box-sizing: border-box;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 2px;
+    }
+    .success {
+      color: green;
+      font-size: 1em;
+      margin-top: 10px;
+      text-align: center;
+    }
+    input:invalid {
+      border: 2px solid #e74c3c;
+      background: #fdecea;
+    }
+    input:valid {
+      border: 2px solid #2ecc71;
+      background: #eafaf1;
+    }
+    button[type="submit"] {
+      margin-top: 8px;
+      padding: 8px 24px;
+      font-size: 1em;
+      border-radius: 4px;
+      border: none;
+      background: #0984e3;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button[type="submit"]:hover {
+      background: #74b9ff;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form id="myForm" novalidate>
+      <div>
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" required>
+        <span class="error" id="fullnameError"></span>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span class="error" id="emailError"></span>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required minlength="8">
+        <span class="error" id="passwordError"></span>
+      </div>
+      <div>
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required pattern="^\d{10}$" placeholder="1234567890">
+        <span class="error" id="phoneError"></span>
+      </div>
+      <button type="submit">Submit</button>
+      <div class="success" id="successMsg"></div>
+    </form>
+  </div>
+  <script>
+    const form = document.getElementById('myForm');
+    const fullname = document.getElementById('fullname');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const phone = document.getElementById('phone');
+
+    const fullnameError = document.getElementById('fullnameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const phoneError = document.getElementById('phoneError');
+    const successMsg = document.getElementById('successMsg');
+
+    function validateFullName() {
+      if (fullname.value.trim() === '') {
+        fullnameError.textContent = 'Full Name is required.';
+        return false;
+      }
+      fullnameError.textContent = '';
+      return true;
+    }
+
+    function validateEmail() {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email.value.trim() === '') {
+        emailError.textContent = 'Email is required.';
+        return false;
+      } else if (!emailPattern.test(email.value)) {
+        emailError.textContent = 'Please enter a valid email address.';
+        return false;
+      }
+      emailError.textContent = '';
+      return true;
+    }
+
+    function validatePassword() {
+      const value = password.value;
+      const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]/;
+      if (value.length < 8) {
+        passwordError.textContent = 'Password must be at least 8 characters.';
+        return false;
+      } else if (!specialCharPattern.test(value)) {
+        passwordError.textContent = 'Password must include a special character.';
+        return false;
+      }
+      passwordError.textContent = '';
+      return true;
+    }
+
+    function validatePhone() {
+      const phonePattern = /^\d{10}$/;
+      if (phone.value.trim() === '') {
+        phoneError.textContent = 'Phone Number is required.';
+        return false;
+      } else if (!phonePattern.test(phone.value)) {
+        phoneError.textContent = 'Enter a 10-digit phone number.';
+        return false;
+      }
+      phoneError.textContent = '';
+      return true;
+    }
+
+    fullname.addEventListener('input', validateFullName);
+    email.addEventListener('input', validateEmail);
+    password.addEventListener('input', validatePassword);
+    phone.addEventListener('input', validatePhone);
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const isFullNameValid = validateFullName();
+      const isEmailValid = validateEmail();
+      const isPasswordValid = validatePassword();
+      const isPhoneValid = validatePhone();
+
+      if (isFullNameValid && isEmailValid && isPasswordValid && isPhoneValid) {
+        successMsg.textContent = 'Form submitted successfully!';
+        form.reset();
+        setTimeout(() => { successMsg.textContent = ''; }, 4000);
+      } else {
+        successMsg.textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>
