@@ -142,7 +142,7 @@ const Index = () => {
   return (
     <main className="min-h-screen bg-[image:var(--gradient-sky)] flex flex-col items-center justify-center p-4 md:p-8">
       <div className="w-full max-w-4xl space-y-8">
-  <div className="text-center space-y-4">
+        <div className="text-center space-y-4 animate-in fade-in-50 slide-in-from-top-4 duration-700">
           <h1 className="text-5xl md:text-6xl font-bold text-foreground drop-shadow-sm">
             Weather Finder
           </h1>
@@ -151,7 +151,7 @@ const Index = () => {
           </p>
         </div>
 
-  <Card className="p-6 bg-card shadow-[var(--shadow-card)] border-0">
+        <Card className="p-6 bg-card shadow-[var(--shadow-card)] border-0 animate-in fade-in-50 slide-in-from-bottom-4 duration-700 delay-150">
           <div className="flex flex-col sm:flex-row gap-3">
             <Input
               type="text"
@@ -165,7 +165,7 @@ const Index = () => {
             <Button
               onClick={fetchWeather}
               disabled={loading}
-              className="h-12 px-8 bg-primary text-primary-foreground font-semibold"
+              className="h-12 px-8 bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 font-semibold"
             >
               <Search className="w-5 h-5 mr-2" />
               {loading ? "Searching..." : "Get Weather"}
@@ -178,7 +178,7 @@ const Index = () => {
         </Card>
 
         {weatherData && (
-          <div>
+          <div className="animate-in fade-in-50 slide-in-from-bottom-8 duration-500">
             <WeatherCard data={weatherData} />
           </div>
         )}
