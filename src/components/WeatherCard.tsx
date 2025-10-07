@@ -29,7 +29,7 @@ export const WeatherCard = ({ data }: WeatherCardProps) => {
   const weatherDesc = data.weather[0].description;
   
   return (
-    <Card className="w-full max-w-2xl p-8 bg-card shadow-[var(--shadow-card)] border-0 animate-in fade-in-50 slide-in-from-bottom-4 duration-500">
+  <Card className="w-full max-w-2xl p-8 bg-card shadow-[var(--shadow-card)] border-0">
       <div className="text-center space-y-6">
         <div className="flex items-center justify-center gap-4">
           <h2 className="text-4xl font-bold text-foreground">{data.name}</h2>
