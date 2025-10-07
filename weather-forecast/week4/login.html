@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Online Store</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #eaeded;}
+    .header-bar {
+      display: flex; align-items: center; background: #232f3e; color: white; padding: 15px 30px;
+    }
+    .logo { width: 50px; height: 50px; margin-right: 18px; }
+    .site-title { font-size: 28px; font-weight: bold; letter-spacing: 2px; margin-right: 48px;}
+    .nav-links { display: flex; gap: 28px; margin-left: auto;}
+    .nav-links a { color: white; text-decoration: none; font-size: 18px; padding: 6px 12px; border-radius: 4px; transition: background 0.2s;}
+    .nav-links a:hover { background: #37475a;}
+    main { max-width: 400px; background: #fff; margin: 45px auto; border-radius:10px; box-shadow: 0 3px 15px rgba(0,0,0,0.11); padding:32px; }
+    h1 { text-align: center; }
+    form { display: flex; flex-direction: column; gap: 18px; margin-top: 28px;}
+    input, button { font-size: 16px; padding: 12px; border-radius: 6px; border: 1px solid #ccc;}
+    button { background: #232f3e; color: white; font-weight: bold; border: none; cursor: pointer; }
+    button:hover { background: #37475a;}
+    a { color: #232f3e; text-decoration: none; text-align: center; display: block; margin-top: 16px; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header class="header-bar">
+    <img src="klh_logo.jpg" alt="KLH Logo" class="logo" />
+    <div class="site-title">Online Store</div>
+    <nav class="nav-links">
+      <a href="welcome.html">Home</a>
+      <a href="registration.html">Register</a>
+      <a href="login.html">Login</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Login</h1>
+    <form>
+      <input type="email" name="email" placeholder="Email Address" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <a href="registration.html">Don't have an account? Register</a>
+  </main>
+</body>
+</html>

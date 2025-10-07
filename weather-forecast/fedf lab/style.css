@@ -1,0 +1,19 @@
+.fixed-hello {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(to right, red, green);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 12px;
+}
+
+
+h1 {
+  position: sticky;
+  top: 10px;
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
