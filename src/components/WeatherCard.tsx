@@ -36,11 +36,13 @@ export const WeatherCard = ({ data }: WeatherCardProps) => {
         </div>
         
         <div className="flex items-center justify-center gap-6">
-          <img 
-            src={`https://openweathermap.org/img/wn/${weatherIcon}@4x.png`}
-            alt={weatherDesc}
-            className="w-32 h-32"
-          />
+          <div className="w-32 h-32 flex items-center justify-center">
+            <img 
+              src={`https://openweathermap.org/img/wn/${weatherIcon}@4x.png`}
+              alt={weatherDesc}
+              className="w-full h-full"
+            />
+          </div>
           <div className="text-left">
             <div className="text-6xl font-bold text-foreground">
               {Math.round(data.main.temp)}°C

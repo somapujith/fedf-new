@@ -12,8 +12,6 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
-  const API_KEY = "bd5e378503939ddaee76f12ad7a97608"; // Free tier API key for demo
-
   const fetchWeather = async () => {
     if (!city.trim()) {
       toast({
@@ -25,19 +23,57 @@ const Index = () => {
 
     setLoading(true);
     try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city},IN&units=metric&appid=${API_KEY}`
+      // First, get coordinates for the city using geocoding
+      const geoResponse = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`
       );
       
-      if (!response.ok) {
+      if (!geoResponse.ok) {
         throw new Error("City not found");
       }
 
-      const data = await response.json();
-      setWeatherData(data);
+      const geoData = await geoResponse.json();
+      
+      if (!geoData.results || geoData.results.length === 0) {
+        throw new Error("City not found");
+      }
+
+      const { latitude, longitude, name, country } = geoData.results[0];
+      
+      // Then get weather data using coordinates
+      const weatherResponse = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,pressure_msl&timezone=Asia/Kolkata`
+      );
+
+      if (!weatherResponse.ok) {
+        throw new Error("Weather data unavailable");
+      }
+
+      const weatherData = await weatherResponse.json();
+      
+      // Transform data to match our WeatherCard component structure
+      const transformedData = {
+        name: name,
+        main: {
+          temp: weatherData.current.temperature_2m,
+          feels_like: weatherData.current.apparent_temperature,
+          humidity: weatherData.current.relative_humidity_2m,
+          pressure: weatherData.current.pressure_msl,
+        },
+        weather: [{
+          main: getWeatherDescription(weatherData.current.weather_code),
+          description: getWeatherDescription(weatherData.current.weather_code),
+          icon: getWeatherIcon(weatherData.current.weather_code),
+        }],
+        wind: {
+          speed: weatherData.current.wind_speed_10m,
+        },
+      };
+
+      setWeatherData(transformedData);
       toast({
         title: "Weather data loaded!",
-        description: `Showing weather for ${data.name}`,
+        description: `Showing weather for ${name}, ${country}`,
       });
     } catch (error) {
       toast({
@@ -49,6 +85,52 @@ const Index = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Convert WMO weather codes to descriptions
+  const getWeatherDescription = (code: number): string => {
+    const weatherCodes: { [key: number]: string } = {
+      0: "Clear sky",
+      1: "Mainly clear",
+      2: "Partly cloudy",
+      3: "Overcast",
+      45: "Foggy",
+      48: "Depositing rime fog",
+      51: "Light drizzle",
+      53: "Moderate drizzle",
+      55: "Dense drizzle",
+      61: "Slight rain",
+      63: "Moderate rain",
+      65: "Heavy rain",
+      71: "Slight snow",
+      73: "Moderate snow",
+      75: "Heavy snow",
+      77: "Snow grains",
+      80: "Slight rain showers",
+      81: "Moderate rain showers",
+      82: "Violent rain showers",
+      85: "Slight snow showers",
+      86: "Heavy snow showers",
+      95: "Thunderstorm",
+      96: "Thunderstorm with slight hail",
+      99: "Thunderstorm with heavy hail",
+    };
+    return weatherCodes[code] || "Unknown";
+  };
+
+  // Convert WMO weather codes to icon codes
+  const getWeatherIcon = (code: number): string => {
+    if (code === 0) return "01d";
+    if (code === 1) return "02d";
+    if (code === 2 || code === 3) return "03d";
+    if (code === 45 || code === 48) return "50d";
+    if (code >= 51 && code <= 55) return "09d";
+    if (code >= 61 && code <= 65) return "10d";
+    if (code >= 71 && code <= 77) return "13d";
+    if (code >= 80 && code <= 82) return "09d";
+    if (code >= 85 && code <= 86) return "13d";
+    if (code >= 95) return "11d";
+    return "01d";
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -103,7 +185,7 @@ const Index = () => {
       </div>
 
       <footer className="mt-12 text-center text-foreground/60 text-sm">
-        <p>Weather data powered by OpenWeatherMap</p>
+        <p>Weather data powered by Open-Meteo</p>
       </footer>
     </main>
   );
